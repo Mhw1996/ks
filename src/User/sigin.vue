@@ -4,11 +4,12 @@
         <p style="padding:60px;font-size: 30px;">照片墙管理系统</p>
         <el-button-group>
           <el-button type="info" plain class="btn1"  @click="jumpLogin">登录</el-button>
-          <el-button type="info" plain class="btn" :class='{MyBgColor2:isActive2}'  @click="jumpSigin">注册</el-button>
+          <el-button type="info" plain class="btn" :class='{MyBgColor2:isActive2}'>注册</el-button>
         </el-button-group>
-        <el-input placeholder="清输入用户名" v-model="uname"  clearable  style="width:300px;padding:20px"/>
-        <el-input placeholder="请输用户密码" v-model="upwd" type="password"  style="width:300px;padding-bottom:10px"/><br>
-        <el-button type="info" round plain style="width: 300px;margin-top:20px;">注册</el-button>
+        <el-input placeholder="清输入用户名" v-model="account"  clearable  style="width:300px;padding:20px"/>
+        <el-input placeholder="请输用户密码" v-model="password2" type="password"  style="width:300px;padding-bottom:20px"/><br>
+        <el-input placeholder="请输确认密码" v-model="password" type="password"  style="width:300px;padding-bottom:10px"/><br>
+        <el-button type="info" round plain style="width: 300px;margin-top:20px;" @click="ToSigin">注册</el-button>
       </div>
     </div>
     </template>
@@ -16,8 +17,9 @@
       export default {
         data() {
           return {
-            uname:"",
-            upwd:"",
+            account:"",
+            password:"",
+            password2:'',
             isActive2:true,
             radio_password:''
           }
@@ -26,7 +28,48 @@
         jumpLogin(){
           this.isActive2=false;
           this.$router.push('/')  
-      }    
+        },
+        ToSigin(){
+          var account=this.account;
+          var password=this.password;
+          var password2=this.password2;
+          var u=/^[\u4E00-\u9FA5\uf900-\ufa2d·s]|[a-z]{3,10}$/;
+          var p=/^.{6,}$/;
+          if(!u.test(account)){
+              this.$notify.error({
+              title: '错误',
+              message: '请保持用户名为至少三个字符！！！'
+            })
+            return
+          }
+          if(!p.test(password2)){
+            this.$notify.error({
+              title: '错误',
+              message: '请保持密码为至少六个字符！！！'
+            })
+            return
+          }
+          if(password!=password2){
+            this.$notify.error({
+              title: '错误',
+              message: '请保持两次密码一致！！！'
+            })
+            return
+          }
+          var url="/u/register"
+          var mySiginData=this.qs.stringify({'account':this.account,'password':this.password})
+          this.axios.post(url,mySiginData).then(result=>{
+            console.log(result)
+            if(result.data.suc){
+              this.$message({
+                message: '注册成功！！！',
+                type: 'success'
+              });
+            }else{
+              this.$message.error('注册失败！！！！');
+            }
+          })
+        }    
         }
       }
     </script>
@@ -52,6 +95,7 @@
         line-height: 100%;
         top:20%;
         text-align: center;
+        box-shadow: 0 0 14px #e9e9e9;
     }
     #app_login .btn1{
       width:150px;
