@@ -20,7 +20,6 @@ import qs from "qs"
 // (5)将qs 模块配置到Vue实例对象中
 Vue.prototype.qs=qs;
 
-
 // 解决跨域问题
 new Vue({
   router,

@@ -2,12 +2,24 @@
 <div id="app-admin">
   <div class="myHeader">
     <span>上传你喜欢的照片</span>
-    <img src="../../public/img/end.png" alt="" style="float:right;margin-right:30px;cursor: pointer;margin-top:5px;"title="退出" @click='end'>
+    <img src="../../public/img/end.png" alt="" style="float:right;margin-right:30px;cursor: pointer;margin-top:5px;" title="退出" @click='end'>
     <span style="float: right;cursor: pointer;margin-right: 20px" @click="jumpMyself" title="个人主页">
       <img src="../../public/img/我的.png" alt="">
-      {{uname}}
+
+  
+ <el-dropdown>
+      <span class="el-dropdown-link">
+      {{uname}}<i class="el-icon-arrow-down el-icon--right"></i>
+      </span>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item icon="el-icon-setting" >
+           <router-link to="/Album/ChangePassword">修改密码</router-link>
+          </el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+
     </span>
-    
+
   </div>
   <br>
   <div class="myBox"><router-view/></div>
@@ -21,17 +33,15 @@ export default {
     }
   },
   methods:{
-    jump(){
-      // this.$router.push("/Sigin")
-      console.log(123)
-    },
     jumpMyself(){
       this.$router.push("/Album/Myself")
     },
     end(){
       localStorage.clear('accout')
+      localStorage.clear('password')
+      localStorage.clear('set_token')
       this.$router.push('/')
-    }
+    },
   }
 }
 </script>
@@ -58,4 +68,11 @@ export default {
   box-shadow: 0 0 14px #e9e9e9;
   background: #eee;
 }
+  .el-dropdown-link {
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
+  }
 </style>

@@ -10,8 +10,8 @@ const request = axios.create({
 request.interceptors.request.use(
   config => {
     // 登录后所有请求附带token
-    if (store.state.isLogin) {
-      config.headers.token = store.state.token
+    if (store.state.token) {
+      config.headers.Authorization = store.state.token
     }
 
     return config

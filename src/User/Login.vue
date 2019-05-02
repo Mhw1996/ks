@@ -53,15 +53,27 @@
           'account':this.account,'password':this.password
         })
         this.$http.post(url,myLoginData).then(result=>{
+          // console.log(result)
             this.$message({
             message: '登录成功！！！',
             type: 'success'
           });
-          this.$router.push('/Admin')
+          let data = result.token;
+          console.log(data)
+//根据store中set_token方法将token保存至localStorage/sessionStorage中，data["Authentication-Token"]，获取token的value值
+
+          this.$store.commit('set_token', data);
+          console.log(store.state.token)
+          // if (store.state.token) {          
+          //   this.$router.push('/Admin')
+          // }else{
+          //   this.$router.push("/")
+          // }
           localStorage.setItem('accout',this.account)
+          localStorage.setItem('password',this.password)
         }
       ).catch((result)=>{
-        this.$message.error('登录失败！！！');
+        this.$message.error('账号或密码错误！！！');
       })
       }
     }
@@ -84,10 +96,10 @@
     border:2px solid #fdffff;
     border-radius: 5px;
     width: 550px;
-    height: 500px;
+    height: 400px;
     margin: 0 auto;
     line-height: 100%;
-    top:20%;
+    top:15%;
     text-align: center;
     
 }

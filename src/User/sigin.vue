@@ -65,6 +65,10 @@
                 message: '注册成功！！！',
                 type: 'success'
               });
+              this.account='';
+              this.password='';
+              this.password2='';
+              this.$router.push('/')
             }else{
               this.$message.error('注册失败！！！！');
             }
@@ -90,10 +94,10 @@
         border:2px solid #fdffff;
         border-radius: 5px;
         width: 550px;
-        height: 500px;
+        height: 450px;
         margin: 0 auto;
         line-height: 100%;
-        top:20%;
+        top:15%;
         text-align: center;
         box-shadow: 0 0 14px #e9e9e9;
     }

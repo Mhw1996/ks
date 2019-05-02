@@ -9,6 +9,7 @@ import Add from "./User/Add.vue"
 import Delete from "./User/Delete.vue"
 import Myself from "./User/Myself.vue"
 import OtherIndex from "./User/OtherIndex"
+import ChangePassword from './User/ChangePassword.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -22,13 +23,14 @@ export default new Router({
          {path:'/Album/Delete',component:Delete},
          {path:'/Album/Select',component:Select},
          {path:'/Album/Myself',component:Myself},
+         {path:'/Album/ChangePassword',component:ChangePassword}
     ]
   }
   ]
 })
 
 
-
+/*
 // 全局路由守卫
 router.beforeEach((to, from, next) => {
   const nextRoute = ['/Admin/'] // 需要登录的页面
@@ -56,3 +58,4 @@ router.beforeEach((to, from, next) => {
   }
   next() // 必须使用 next ,执行效果依赖 next 方法的调用参数
 })
+*/
